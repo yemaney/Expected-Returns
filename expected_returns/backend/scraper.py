@@ -17,9 +17,27 @@ def cape_ratio(scope: str = "World"):
         capet.reset_index(inplace=True)
         column_numbers = [x for x in range(capet.shape[1])]
         column_numbers.remove(8)
-
         capet.rename(columns={"index": "Date"}, inplace=True)
-        return capet.iloc[:, column_numbers]
+        capet = capet.iloc[:, column_numbers]
+        df = capet.reset_index()
+        df = pd.melt(
+            df,
+            id_vars="Date",
+            value_vars=[
+                "Canada",
+                "US",
+                "UK",
+                "Italy",
+                "Spain",
+                "Russia",
+                "India",
+                "Japan*",
+                "China",
+                "Hong Kong",
+                "Australia",
+            ],
+        )
+        return df
     elif scope == "World":
         cape_df = pd.read_html("https://siblisresearch.com/data/world-cape-ratio/")[0]
         cape_df["Global Stock Markets CAPE Ratio"] = cape_df[
