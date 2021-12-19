@@ -1,8 +1,8 @@
 import pandas as pd
 
 
-def cape_ratio(by_country: bool = False):
-    if by_country:
+def cape_ratio(scope: str = "World"):
+    if scope == "Country":
         cape_df = pd.read_html(
             "https://siblisresearch.com/data/cape-ratios-by-country/"
         )[0]
@@ -15,9 +15,12 @@ def cape_ratio(by_country: bool = False):
         capet = cape_df[dates].T
         capet.columns = countries
         capet.reset_index(inplace=True)
-        capet.rename(columns={"index": "Date"})
-        return capet
-    else:
+        column_numbers = [x for x in range(capet.shape[1])]
+        column_numbers.remove(8)
+
+        capet.rename(columns={"index": "Date"}, inplace=True)
+        return capet.iloc[:, column_numbers]
+    elif scope == "World":
         cape_df = pd.read_html("https://siblisresearch.com/data/world-cape-ratio/")[0]
         cape_df["Global Stock Markets CAPE Ratio"] = cape_df[
             "Global Stock Markets CAPE Ratio"
