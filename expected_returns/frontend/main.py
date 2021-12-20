@@ -17,7 +17,7 @@ elif sidebar == "World":
     st.markdown("---")
     if st.button("Request World Expected Returns"):
 
-        res = requests.post(url="http://127.0.0.1:8000/expected-returns/World")
+        res = requests.post(url="http://backend:8000/expected-returns/World")
         res_df = pd.read_json(res.text)
 
         c = (
@@ -53,7 +53,7 @@ elif sidebar == "By Country":
     st.markdown("---")
     if st.button("Request Expected Returns By Country"):
 
-        res = requests.post(url="http://127.0.0.1:8000/expected-returns/Country")
+        res = requests.post(url="http://backend:8000/expected-returns/Country")
         res_df = pd.read_json(res.text)
 
         highlight = alt.selection(
