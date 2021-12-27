@@ -1,8 +1,10 @@
-- **add streamlit front end** --  2021-12-19 -- (bbee608)
-- **changed python vesion in workflow** --  2021-12-18 -- (7eb581b)
-- **Add fastapi backend w tests for cape ratio scraper** --  2021-12-18 -- (1d47cd8)
-- **adding requirments.txt for workflow** --  2021-12-15 -- (486ffb4)
-- **added cape ratio scraper** --  2021-12-15 -- (334fd2a)
-- **Adding poetry scaffolding** --  2021-12-12 -- (336da27)
-- **Create python-app.yml** --  2021-12-12 -- (6170b62)
-- **Initial commit** --  2021-12-12 -- (8214313)
+- **2021-12-26** add sqlmodel database creator scaffolding
+- **2021-12-19** dockerize front/back end, connect w docker-compose
+- **2021-12-19** add streamlit front end
+- **2021-12-18** changed python vesion in workflow
+- **2021-12-18** Add fastapi backend w tests for cape ratio scraper
+- **2021-12-15** adding requirments.txt for workflow
+- **2021-12-15** added cape ratio scraper
+- **2021-12-12** Adding poetry scaffolding
+- **2021-12-12** Create python-app.yml
+- **2021-12-12** Initial commit
