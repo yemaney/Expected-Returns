@@ -1,3 +1,4 @@
+- **2021-12-28** dockerize database, connect w docker-compose
 - **2021-12-26** add sqlmodel database creator scaffolding
 - **2021-12-19** dockerize front/back end, connect w docker-compose
 - **2021-12-19** add streamlit front end

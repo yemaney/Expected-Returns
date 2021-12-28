@@ -2,3 +2,4 @@ fastapi==0.70.1
 pandas==1.3.5
 uvicorn==0.16.0
 lxml==4.7.1
+requests==2.26.0

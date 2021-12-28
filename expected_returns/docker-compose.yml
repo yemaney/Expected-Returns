@@ -1,6 +1,12 @@
 version: '3'
 
 services:
+
+  backend:
+    build: backend
+    ports:
+      - 8000:8000
+
   frontend:
     build: frontend
     ports:
@@ -8,7 +14,10 @@ services:
     depends_on:
       - backend
 
-  backend:
-    build: backend
+  database:
+    build: database
+    depends_on:
+      - backend
     ports:
-      - 8000:8000
+      - 8080:8080
+    

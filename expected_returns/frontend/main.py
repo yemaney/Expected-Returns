@@ -1,10 +1,10 @@
+import altair as alt
+import pandas as pd
 import requests
 import streamlit as st
-import pandas as pd
-import altair as alt
 
 sidebar = st.sidebar.selectbox(
-    label="Navigation", options=("Home", "World", "By Country")
+    label="Navigation", options=("Home", "Update Database", "World", "By Country")
 )
 
 if sidebar == "Home":
@@ -12,12 +12,28 @@ if sidebar == "Home":
     st.markdown("---")
 
 
+elif sidebar == "Update Database":
+    st.title("Update Database")
+    st.markdown("---")
+
+    scope = st.selectbox(label="scope", options=("World", "Country"))
+    if st.button("Update Database"):
+        try:
+            res = requests.post(url=f"http://backend:8000/update/{scope}")
+        except Exception as e:
+            res = requests.post(url=f"http://127.0.0.1:8000/update/{scope}")
+        st.success(res.json()["Message"])
+
 elif sidebar == "World":
     st.title("World Expected Returns")
     st.markdown("---")
     if st.button("Request World Expected Returns"):
 
-        res = requests.post(url="http://backend:8000/expected-returns/World")
+        try:
+            res = requests.post(url="http://backend:8000/expected-returns/World")
+        except Exception as e:
+            res = requests.post(url="http://127.0.0.1:8000/expected-returns/World")
+
         res_df = pd.read_json(res.text)
 
         c = (
@@ -36,7 +52,7 @@ elif sidebar == "World":
                     y2=0,
                 ),
             )
-            .encode(x="Date", y="Global Stock Markets CAPE Ratio")
+            .encode(x="date", y="cape")
         )
 
         st.altair_chart(c, use_container_width=True)
@@ -53,14 +69,20 @@ elif sidebar == "By Country":
     st.markdown("---")
     if st.button("Request Expected Returns By Country"):
 
-        res = requests.post(url="http://backend:8000/expected-returns/Country")
+        try:
+            res = requests.post(url="http://backend:8000/expected-returns/Country")
+        except Exception as e:
+            res = res = requests.post(
+                url="http://127.0.0.1:8000/expected-returns/Country"
+            )
+
         res_df = pd.read_json(res.text)
 
         highlight = alt.selection(
-            type="single", on="mouseover", fields=["Nation"], nearest=True
+            type="single", on="mouseover", fields=["country"], nearest=True
         )
 
-        base = alt.Chart(res_df).encode(x="Date:T", y="value:Q", color="Nation:N")
+        base = alt.Chart(res_df).encode(x="date:T", y="cape:Q", color="country:N")
 
         points = (
             base.mark_circle()

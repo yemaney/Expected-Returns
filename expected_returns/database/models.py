@@ -9,9 +9,8 @@ class GlobalCape(SQLModel, table=True):
     date: str
 
 
-class NationalCape(SQLModel, table=True):
+class CountryCape(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     cape: float
-    nation: str
+    country: str
     date: str
-    
