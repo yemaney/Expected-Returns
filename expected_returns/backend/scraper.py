@@ -1,7 +1,7 @@
 import pandas as pd
 
 
-def cape_ratio(scope: str = "World"):
+def cape_ratio(scope: str = "World") -> dict:
     """
     Web scraper to collect cape ratios, using pandas.
 
@@ -16,6 +16,8 @@ def cape_ratio(scope: str = "World"):
     pd.DataFrame
         pandas dataframe of cape ratios collected in long format
     """
+    if scope != "Country" and scope != "World":
+        raise ValueError("Scope must be World or Country")
 
     if scope == "Country":
         cape_df = pd.read_html(

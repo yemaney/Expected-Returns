@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "Expected-Returns"
-version = "0.1.0"
+version = "0.1.7"
 description = ""
 authors = ["yemaney <yemane_@outlook.com>"]
 

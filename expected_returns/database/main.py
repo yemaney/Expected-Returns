@@ -1,9 +1,13 @@
 import uvicorn
-from fastapi import FastAPI
+from fastapi import Depends, FastAPI
 from sqlmodel import Session, select
 
-from database import create_db_and_tables, engine
-from models import CountryCape, GlobalCape
+try:
+    from database import create_db_and_tables, engine
+    from models import CountryCape, GlobalCape
+except ImportError:
+    from .database import create_db_and_tables, engine
+    from .models import CountryCape, GlobalCape
 
 app = FastAPI()
 
@@ -20,6 +24,11 @@ def reshape(data: dict) -> dict:
     return new
 
 
+def get_session():
+    with Session(engine) as session:
+        yield session
+
+
 @app.on_event("startup")
 def on_startup():
     create_db_and_tables()
@@ -29,38 +38,39 @@ scopes = {"World": GlobalCape, "Country": CountryCape}
 
 
 @app.post("/{scope}")
-async def update_database(capes: dict, scope: str) -> dict:
+async def update_database(
+    *, session: Session = Depends(get_session), capes: dict, scope: str
+) -> dict:
     ret = reshape(capes)
 
     cape = scopes[scope]
-    with Session(engine) as session:
-        if scope == "World":
-            dates = session.exec(select(cape.date)).all()
+    new = []
+    if scope == "World":
+        dates = session.exec(select(cape.date)).all()
 
-            new = []
-            # for date in dates:
-            for _, elem in ret.items():
-                if elem["date"] not in dates:
-                    new.append((elem))
+        # for date in dates:
+        for _, elem in ret.items():
+            if elem["date"] not in dates:
+                new.append((elem))
 
-        elif scope == "Country":
-            data = session.exec(select(cape.date, cape.country)).all()
-            datas = []
-            for elem in data:
-                datas.append([elem["date"], elem["country"]])
+    elif scope == "Country":
+        data = session.exec(select(cape.date, cape.country)).all()
+        datas = []
+        for elem in data:
+            datas.append([elem["date"], elem["country"]])
 
-            new = []
-            for _, elem in ret.items():
-                x = [elem["date"], elem["country"]]
-                if x not in datas:
-                    new.append(elem)
+        for _, elem in ret.items():
+            x = [elem["date"], elem["country"]]
+            if x not in datas:
+                new.append(elem)
 
+    if new:
         for data in new:
             gc = cape(**data)
             session.add(gc)
         session.commit()
 
-    return {"": "", "Message": f"Completed update of {scope} table in database!"}
+    return {"Message": f"Completed update of {scope} table in database!"}
 
 
 if __name__ == "__main__":
