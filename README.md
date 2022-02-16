@@ -1,6 +1,6 @@
-# Expected-Returns
+# Expected-Returns [![Python application](https://github.com/yemaney/Expected-Returns/actions/workflows/python-app.yml/badge.svg)](https://github.com/yemaney/Expected-Returns/actions/workflows/python-app.yml)
 
-![Diagram](./Docs/DockerComposeDiagram.jpg "Docker Compose Diagram")
+![Diagram](./docs/docs/images/DockerComposeDiagram.jpg "Docker Compose Diagram")
 
 ---
 Simple and neat project to give expected returns for global equity markets.
