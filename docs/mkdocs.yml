@@ -1,0 +1,24 @@
+site_name: Expected Returns
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: cyan
+      accent: cyan
+      toggle:
+        name: Switch to light mode
+        icon: material/lightbulb-outline
+    - scheme: slate
+      primary: cyan
+      accent: cyan
+      toggle:
+        name: Switch to dark mode
+        icon: material/lightbulb
+  features:
+    - toc.follow
+    - navigation.top
+    - navigation.tracking
+    - search.highlight
+    - content.tabs.link
+repo_url: https://github.com/yemaney/Expected-Returns
+repo_name: yemaney/Expected-Returns
