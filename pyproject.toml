@@ -1,11 +1,11 @@
 [tool.poetry]
 name = "Expected-Returns"
-version = "0.1.7"
+version = "0.2.0"
 description = ""
 authors = ["yemaney <yemane_@outlook.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.9.5"
 lxml = "^4.7.1"
 fastapi = "^0.70.1"
 uvicorn = {extras = ["standard"], version = "^0.16.0"}

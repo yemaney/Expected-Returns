@@ -1,4 +1,4 @@
-# Expected-Returns [![Python application](https://github.com/yemaney/Expected-Returns/actions/workflows/python-app.yml/badge.svg)](https://github.com/yemaney/Expected-Returns/actions/workflows/python-app.yml)
+# Expected-Returns [![Python application](https://github.com/yemaney/Expected-Returns/actions/workflows/python-app.yml/badge.svg)](https://github.com/yemaney/Expected-Returns/actions/workflows/python-app.yml) ![Python 3.6](https://img.shields.io/badge/python-3.9.5-blue.svg)
 
 ![Diagram](./docs/docs/images/DockerComposeDiagram.jpg "Docker Compose Diagram")
 
